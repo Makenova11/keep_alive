@@ -27,12 +27,21 @@ namespace keep_alive
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
+
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
 
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         const int SW_RESTORE = 9;
         const int SW_MINIMIZE = 6;
+        const int WM_KEYDOWN = 0x0100;
+        const int WM_KEYUP = 0x0101;
+        const int VK_CONTROL = 0x11;
+
         public WindowsWorker(IConfiguration configuration)
         {
             _remoteDesktopWindowName = configuration["RemoteDesktopWindowName"];
@@ -48,14 +57,9 @@ namespace keep_alive
                 {
                     if (IsIconic(hWnd))
                     {
-                        //SetForegroundWindow(hWnd);
-                        ShowWindow(hWnd, SW_RESTORE);
-                        SetForegroundWindow(hWnd);
-
-                        await Task.Delay(300, stoppingToken);
-
-                        sim.Keyboard.KeyPress(VirtualKeyCode.CONTROL);
-                        ShowWindow(hWnd, SW_MINIMIZE);
+                        SendMessage(hWnd, WM_KEYDOWN, (IntPtr)VK_CONTROL, IntPtr.Zero);
+                        await Task.Delay(100, stoppingToken);
+                        SendMessage(hWnd, WM_KEYUP, (IntPtr)VK_CONTROL, IntPtr.Zero);
                     }
                 }
 
