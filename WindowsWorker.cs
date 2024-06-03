@@ -1,5 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace keep_alive
 {
