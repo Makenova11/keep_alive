@@ -57,9 +57,11 @@ namespace keep_alive
                 {
                     if (IsIconic(hWnd))
                     {
+                        ShowWindow(hWnd, SW_RESTORE);
                         SendMessage(hWnd, WM_KEYDOWN, (IntPtr)VK_CONTROL, IntPtr.Zero);
                         await Task.Delay(100, stoppingToken);
                         SendMessage(hWnd, WM_KEYUP, (IntPtr)VK_CONTROL, IntPtr.Zero);
+                        ShowWindow(hWnd, SW_MINIMIZE);
                     }
                 }
 
