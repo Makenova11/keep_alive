@@ -58,14 +58,14 @@ namespace keep_alive
                     if (IsIconic(hWnd))
                     {
                         ShowWindow(hWnd, SW_RESTORE);
-                        SendMessage(hWnd, WM_KEYDOWN, (IntPtr)VK_CONTROL, IntPtr.Zero);
+                        SendMessage(hWnd, WM_KEYDOWN, (IntPtr)VK_CONTROL, IntPtr.RotateLeft(1,1));
                         await Task.Delay(100, stoppingToken);
-                        SendMessage(hWnd, WM_KEYUP, (IntPtr)VK_CONTROL, IntPtr.Zero);
+                        SendMessage(hWnd, WM_KEYUP, (IntPtr)VK_CONTROL, IntPtr.RotateRight(1, 1));
                         ShowWindow(hWnd, SW_MINIMIZE);
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
             }
         }
 

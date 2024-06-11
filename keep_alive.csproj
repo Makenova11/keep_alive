@@ -6,7 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-keep_alive-af0c09ee-a37b-4c83-ba5b-85276506d51c</UserSecretsId>
     <OutputType>WinExe</OutputType>
+    <ApplicationIcon>element-7_99616.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="element-7_99616.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="InputSimulator" Version="1.0.4" />
